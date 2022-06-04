@@ -148,12 +148,12 @@ h2 {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:onclick {background-color: #f1f1f1}
 
-.dropdown:hover .dropdown-content {
+.dropdown:onclick .dropdown-content {
   display: block;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:onclick .dropbtn {
   background-color: #b114ff;
 }
