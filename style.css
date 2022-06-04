@@ -157,7 +157,3 @@ h2 {
 .dropdown:hover .dropbtn {
   background-color: #b114ff;
 } */
-
-.disabled {
-	pointer-events: none;
-}
