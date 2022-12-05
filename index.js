@@ -1,7 +1,3 @@
-function typeFunc() {
-	document.getElementById("TrickDown").classList.toggle("show");
-}
-
 window.onclick = function(event) {
 	if (!event.target.matches('.dropbtn')) {
 		var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -14,3 +10,11 @@ window.onclick = function(event) {
 		}
 	}
 }
+
+const drop = document.getElementById('trick');
+console.log(drop);
+drop.addEventListener('change', function() {
+	const sel = this.options[this.selectedIndex];
+
+	console.log(sel.value);
+});

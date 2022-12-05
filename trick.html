@@ -12,7 +12,6 @@
 			<h1>The Ramen™ NST</h1>
 			<nav>
 				<a href="index.html" class>Home</a>
-				<a href="test.html" class>Full Tests</a>
 				<a href="trick.html" class="active">Tricks</a>
 				<a href="contact.html" class>Contact</a>
 			</nav>
@@ -22,13 +21,12 @@
 				<h2>Yes, this is basically a ripoff of ekzhang, again</h2>
 				<div class="row">
 					<section class="col-md-8 col-xl-9">
-						<div class="dropdown">
-							<button onclick="typeFunc()" class="dropbtn">Select the Trick</button>
-							<div id="TrickDown" class="dropdown-content scrolling">
-								<a href="#"><b>Multiplication Tricks</b></a>
-								<a href="#">Times 11</a>
-							</div>
-						</div>
+						<b>Multiplication Tricks</b>
+						<select id="trick">
+							<option disabled selected value> -- select an option -- </option>
+							<option value="times11">Multiplying by 11</option>
+						</select>
+						<br>
 					</section>
 					<section class="col-md-4 col-xl-3">
 						<img style="max-width: 100%; height: auto;" alt="uil" src="uil.jpg">
