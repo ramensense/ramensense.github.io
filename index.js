@@ -12,9 +12,14 @@ window.onclick = function(event) {
 }
 
 const drop = document.getElementById('trick');
-console.log(drop);
 drop.addEventListener('change', function() {
 	const sel = this.options[this.selectedIndex];
 
-	console.log(sel.value);
+	window.open('../ramen-nst.github.io/practice.html', '_self');
 });
+
+function load() {
+	const element = document.getElementById('js');
+	console.log(element);
+	document.getElementById('js').innerHTML(drop);
+}
