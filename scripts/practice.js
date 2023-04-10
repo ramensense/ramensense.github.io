@@ -1,5 +1,4 @@
 var pass = new URLSearchParams(window.location.search).get('pass')
-console.log(pass);
 
 /* list of possible 'pass' values...
 MULTIPLICATION
@@ -75,13 +74,11 @@ function domath() {
 		}
 		prob.textContent = `${randInt} * ${pass.substring(5)} = ??`;
 		ans = (randInt * parseInt(pass.substring(5))).toString();
-		console.log(ans);
 	}
 }
 
 function submit() {
 	const out = field.value;
-	console.log(out);
 	if (out === ans) {
 		right += 1;
 	} else {
