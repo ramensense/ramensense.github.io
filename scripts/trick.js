@@ -12,10 +12,13 @@ window.onclick = function(event) {
 }
 
 const drop = document.getElementById('trick');
+
 drop.addEventListener('change', function() {
 	const sel = this.options[this.selectedIndex];
+	const val = sel.value;
+	console.log(val);
 
-	window.open('../ramen-nst.github.io/practice.html', '_self');
+	window.open('../html/practice.html?pass=' + val, '_self'); // peak security
 });
 
 function load() {
