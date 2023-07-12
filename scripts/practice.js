@@ -1,4 +1,4 @@
-var pass = new URLSearchParams(window.location.search).get('pass')
+var pass = new URLSearchParams(window.location.search).get('pass');
 
 /* list of possible 'pass' values...
 MULTIPLICATION
@@ -14,6 +14,7 @@ const txt = document.getElementById('remove');
 const prob = document.getElementById('problem');
 const field = document.getElementById('user-input');
 const list = document.getElementById('wrong');
+var problist = [];
 header.textContent = "Some info before you begin:";
 
 let start, end;
@@ -60,21 +61,13 @@ function domath() {
 			questions you missed.`;
 		missed.forEach(function(e) {
 			list.innerHTML += "<li>" + e + "</li>";
-		})
+		});
+		MathJax.Hub.Queue(['Typeset', MathJax.Hub, list]);
 		return;
 	}
 
-	if (pass.startsWith("times")) {
-		console.log('times!!');
-		let randInt;
-		if (pass.substring(5) == "25") {
-			randInt = 2 * Math.floor(Math.random() * 95 + 6);
-		} else {
-			randInt = Math.floor(Math.random() * 976 + 24);
-		}
-		prob.textContent = `${randInt} * ${pass.substring(5)} = ??`;
-		ans = (randInt * parseInt(pass.substring(5))).toString();
-	}
+	eval(pass + "();");
+	MathJax.Hub.Queue(['Typeset', MathJax.Hub, prob]);
 }
 
 function submit() {
@@ -82,8 +75,8 @@ function submit() {
 	if (out === ans) {
 		right += 1;
 	} else {
-		missed.push(`You answered <b>${out}</b> on the question <b>${prob.textContent}</b>, 
-			when the correct answer was <b>${ans}</b>`);
+		missed.push(`You answered <b>\\( ${out} \\)</b> on the question <b>${problist[problist.length-1]}</b>, 
+			when the correct answer was <b>\\( ${ans} \\)</b>`);
 	}
 
 	iter += 1;

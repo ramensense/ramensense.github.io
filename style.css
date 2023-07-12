@@ -162,3 +162,7 @@ h2 {
 	max-height:250px;
 	overflow:scroll;
 }
+
+select option {
+	text-align: center;
+}

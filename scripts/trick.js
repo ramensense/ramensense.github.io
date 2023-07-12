@@ -11,14 +11,16 @@ window.onclick = function(event) {
 	}
 }
 
-const drop = document.getElementById('trick');
+const drop = document.querySelectorAll('.trick');
 
-drop.addEventListener('change', function() {
-	const sel = this.options[this.selectedIndex];
-	const val = sel.value;
-	console.log(val);
+drop.forEach(dropdown => {
+	dropdown.addEventListener('change', () => {
+		const sel = dropdown.options[dropdown.selectedIndex];
+		const val = sel.value;
+		console.log(val);
 
-	window.open('../html/practice.html?pass=' + val, '_self'); // peak security
+		window.open('../html/practice.html?pass=' + val, '_self'); // peak security
+	})
 });
 
 function load() {
