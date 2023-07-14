@@ -20,6 +20,42 @@ function gcd(a, b) {
 	return gcd(b, a % b);
 }
 
+function factorial(x) {
+	if (x <= 1) {
+		return 1;
+	} else {
+		return x * factorial(x-1);
+	}
+}
+
+function btodec(x, b) {
+	// base b to base 10
+	x = x.toString();
+    let pw = 0;
+    let ans = 0;
+    for (var i = x.length - 1; i >= 0; i--) {
+        ans += Math.pow(b, pw) * (x[i] - '0');
+        ++pw;
+    }
+    return ans;
+}
+
+function dectob(x, b) {
+	// base 10 to base b
+    let pw = 0;
+    while (Math.pow(b, pw+1) <= x) {
+        ++pw;
+    }
+    let ans = "";
+    while (pw >= 0) {
+        if ( !(x < Math.pow(b, pw) && ans.length == 0) ) {
+            ans += Math.floor(x / Math.pow(b, pw)).toString();
+            x %= Math.pow(b, pw);
+        }
+        --pw;
+    }
+    return ans;
+}
 
 
 // PROBLEMS 1 - 20
@@ -259,7 +295,7 @@ function one_eq() {
 	let B = Math.floor(Math.random() * 199 - 99);
 	B = (B > 0 ? "+" : "") + B.toString();
 	let A = Math.floor(Math.random() * 9 + 2);
-	eq = `Solve for \\( x \\) such that \\( ${A}x ${B} = ${C} \\) <br>[Don't use mixed numbers!]`;
+	eq = `Solve for \\( x \\) such that \\( ${A}x ${B} = ${C} \\) <br>[Use integers or fractions!]`;
 	let top = C - B, bottom = A;
 	if (top % bottom == 0) ans = (top / bottom).toString();
 	else {
@@ -462,3 +498,193 @@ function quadcub() {
 
 
 // PROBLEMS 41-60
+function coordgeo() {
+	let randInt = Math.floor(Math.random() * 2);
+	if (randInt == 0) {
+		// given (w,x) and (y,z) find midpoint
+		let W = Math.floor(Math.random() * 21 - 10);
+		let X = Math.floor(Math.random() * 21 - 10);
+		let Y = Math.floor(Math.random() * 21 - 10);
+		let Z = Math.floor(Math.random() * 21 - 10);
+		let rand2 = Math.floor(Math.random() * 3);
+		if (rand2 == 0) {
+			eq = `If the midpoint of \\( (${W}, ${X}) \\) and \\( (${Y}, ${Z}) \\) is \\( (a, b) \\), what is \\( a \\)`;
+			let top = W+Y, bottom = 2;
+			if (top % bottom == 0) ans = (top / bottom).toString();
+			else {
+				let G = gcd(Math.abs(top), Math.abs(bottom));
+				top /= G; bottom /= G;
+				if (bottom < 0) {
+					top = -top;
+					bottom = -bottom;
+				}
+				ans = top.toString() + "/" + bottom.toString();
+			}
+		} else if (rand2 == 1) {
+			eq = `If the midpoint of \\( (${W}, ${X}) \\) and \\( (${Y}, ${Z}) \\) is \\( (a, b) \\), what is \\( b \\)`;
+			let top = X+Z, bottom = 2;
+			if (top % bottom == 0) ans = (top / bottom).toString();
+			else {
+				let G = gcd(Math.abs(top), Math.abs(bottom));
+				top /= G; bottom /= G;
+				if (bottom < 0) {
+					top = -top;
+					bottom = -bottom;
+				}
+				ans = top.toString() + "/" + bottom.toString();
+			}
+		} else {
+			eq = `If the midpoint of \\( (${W}, ${X}) \\) and \\( (${Y}, ${Z}) \\) is \\( (a, b) \\), what is \\( a+b \\)`;
+			let top = W+X+Y+Z, bottom = 2;
+			if (top % bottom == 0) ans = (top / bottom).toString();
+			else {
+				let G = gcd(Math.abs(top), Math.abs(bottom));
+				top /= G; bottom /= G;
+				if (bottom < 0) {
+					top = -top;
+					bottom = -bottom;
+				}
+				ans = top.toString() + "/" + bottom.toString();
+			}
+		}
+	} else {
+		// given (w,x) and midpoint find (y,z)
+		let W = Math.floor(Math.random() * 21 - 10);
+		let X = Math.floor(Math.random() * 21 - 10);
+		let MA = Math.floor(Math.random() * 21 - 10);
+		let MB = Math.floor(Math.random() * 21 - 10);
+		let rand2 = Math.floor(Math.random() * 3);
+		if (rand2 == 0) {
+			eq = `If the midpoint of \\( (${W}, ${X}) \\) and \\( (a,b) \\) is \\( (${MA}, ${MB}) \\), what is \\( a \\)`;
+			ans = (2*MA-W).toString();
+		} else if (rand2 == 1) {
+			eq = `If the midpoint of \\( (${W}, ${X}) \\) and \\( (a,b) \\) is \\( (${MA}, ${MB}) \\), what is \\( b \\)`;
+			ans = (2*MB-X).toString();
+		} else {
+			eq = `If the midpoint of \\( (${W}, ${X}) \\) and \\( (a,b) \\) is \\( (${MA}, ${MB}) \\), what is \\( a+b \\)`;
+			ans = (2*(MA+MB)-(W+X)).toString();
+		}
+	}
+	eq += `<br>[Only use integers or fractions to answer!]`
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+function complex() {
+	// given (a+bi)(c+di) = y+zi, find y or z or y+z
+	let A = Math.floor(Math.random() * 21 - 10);
+	let B = Math.floor(Math.random() * 21 - 10);
+	B = (B < 0 ? "" : "+") + B.toString();
+	let C = Math.floor(Math.random() * 21 - 10);
+	let D = Math.floor(Math.random() * 21 - 10);
+	D = (D < 0 ? "" : "+") + D.toString();
+	eq = `Given \\( (${A}${B}i)(${C}${D}i) = a + bi \\), what is `;
+	let randInt = Math.floor(Math.random() * 3);
+	if (randInt == 0) {
+		eq += `\\( a \\)`;
+		ans = (A * C - parseInt(B) * parseInt(D)).toString();
+	} else if (randInt == 1) {
+		eq += `\\( b \\)`;
+		ans = (A * parseInt(D) + parseInt(B) * C).toString();
+	} else {
+		eq += `\\( a+b \\)`;
+		ans = ((A + parseInt(B)) * (C + parseInt(D)) - 2 * parseInt(B) * parseInt(D));
+	}
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+function c_and_p() {
+	// calculate nCr or nPr
+	let N = Math.floor(Math.random() * 5 + 4);
+	let R = Math.floor(Math.random() * N + 1);
+	ans = factorial(N) / factorial(N-R);
+	if (Math.random() < 0.5) {
+		// nCr
+		eq = `Calculate \\( _{${N}}C_{${R}} \\)`;
+		ans = (ans / factorial(R)).toString();
+	} else {
+		// nPr
+		eq = `Calculate \\( _{${N}}P_{${R}} \\)`;
+		ans = ans.toString();
+	}
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+function basemath() {
+	// should probably do all four operations,
+	// just focusing on + - * for now
+	let randInt = Math.floor(Math.random() * 3);
+	let B = Math.floor(Math.random() * 4 + 5); // [5, 8]
+	if (randInt == 0) {
+		// +
+		// make numbers between B^2 and B^3 - 1
+		let X = Math.floor(Math.random() * (B*B*B-B*B) + B*B);
+		let Y = Math.floor(Math.random() * (B*B*B-B*B) + B*B);
+		ans = X + Y;
+		X = dectob(X, B);
+		Y = dectob(Y, B);
+		ans = dectob(ans, B).toString();
+		eq = `\\( ${X}_{${B}} + ${Y}_{${B}} = \\)`;
+	} else if (randInt == 1) {
+		// -
+		// make numbers between B^2 and B^3 - 1
+		let X = Math.floor(Math.random() * (B*B*B-B*B) + B*B);
+		// avoid negative answers! thus Y must now be between B^2 and X-1 inclusive
+		let Y = Math.floor(Math.random() * (X-B*B) + B*B);
+		ans = X - Y;
+		X = dectob(X, B);
+		Y = dectob(Y, B);
+		ans = dectob(ans, B).toString();
+		eq = `\\( ${X}_{${B}} - ${Y}_{${B}} = \\)`;
+	} else {
+		// *
+		// make X between B^2 and B^3 - 1
+		let X = Math.floor(Math.random() * (B*B*B-B*B) + B*B);
+		// make Y between 2 and 4
+		let Y = Math.floor(Math.random() * 3 + 2);
+		// but also make sure to try to test 11s trick in other bases
+		if (Math.random() <= 0.25) {
+			Y = B + 1;
+		}
+		ans = X * Y;
+		X = dectob(X, B);
+		Y = dectob(Y, B);
+		ans = dectob(ans, B).toString();
+		eq = `\\( ${X}_{${B}} \\times ${Y}_{${B}} = \\)`;
+	}
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+function polynum() {
+	// triangular, pentagonal, or hexagonal
+	let randInt = Math.floor(Math.random() * 3);
+	if (randInt == 0) {
+		// triangular, [5, 20]
+		let N = Math.floor(Math.random() * 16 + 5);
+		eq = `If \\( N = ${N} \\), what is the \\( N \\)th triangular number?`;
+		ans = (N * (N+1) / 2).toString();
+	} else if (randInt == 1) {
+		// pentagonal, [3, 10]
+		let N = Math.floor(Math.random() * 8 + 3);
+		eq = `If \\( N = ${N} \\), what is the \\( N \\)th pentagonal number?`;
+		ans = (N * (3 * N - 1) / 2).toString();
+	} else {
+		// hexagonal, [3, 10]
+		let N = Math.floor(Math.random() * 8 + 3);
+		eq = `If \\( N = ${N} \\), what is the \\( N \\)th hexagonal number?`;
+		ans = (N * (4 * N - 2) / 2).toString();
+	}
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+
+
+// PROBLEMS 61 - 70
+
+
+
+

@@ -44,11 +44,11 @@ var missed = [];
 
 function domath() {
 	field.value = '';
-	header.textContent = `Problem ${(iter+1).toString()} of 20`;
-	if (iter === 20) {
+	header.textContent = `Problem ${(iter+1).toString()} of 10`;
+	if (iter === 10) {
 		end = performance.now();
 		const time = (end - start) / 1000;
-		const rate = time / 20;
+		const rate = time / 10;
 
 		header.textContent = "Congratulations on finishing the test!";
 		button.style.display='none';
@@ -56,7 +56,7 @@ function domath() {
 		prob.style.display='none';
 		list.style.display='block';
 
-		txt.innerHTML = `Out of the 20 problems you attempted, you got a total of 
+		txt.innerHTML = `Out of the 10 problems you attempted, you got a total of 
 			<u>${right.toString()}</u> correct.<br>On average, you took 
 			<u>${rate.toFixed(2)}</u> seconds per question.<br>Below are the 
 			questions you missed.`;
