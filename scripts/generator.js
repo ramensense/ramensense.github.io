@@ -57,6 +57,17 @@ function dectob(x, b) {
     return ans;
 }
 
+function deg_to_rad(value) {
+	let top = value, bottom = 180;
+	let G = gcd(top, bottom);
+	top /= G; bottom /= G;
+	if (top == 1) {
+		top = "";
+	}
+	return `\\dfrac{${top}\\pi}{${bottom}}`;
+}
+
+
 
 // PROBLEMS 1 - 20
 function quickmaf() {
@@ -185,11 +196,19 @@ function sum() {
 		ans = (last * (last+1) / 2).toString();
 	} else if (randInt == 1) {
 		let last = 1 + 2 * Math.floor(Math.random() * 36 + 4);
-		eq = `\\( 1 + 3 + 5 + \\ldots + ${last} \\)`;
+		if (Math.random() <= 0.5) {
+			eq = `\\( 1 + 3 + 5 + \\ldots + ${last} \\)`;
+		} else {
+			eq = `What is the sum of the first \\( ${(last+1)/2} \\) odd integers?`;
+		}
 		ans = (Math.pow((last + 1) / 2, 2)).toString();
 	} else {
 		let last = 2 * Math.floor(Math.random() * 15 + 6);
-		eq = `\\( 2 + 4 + 6 + \\ldots + ${last} \\)`;
+		if (Math.random() <= 0.5) {
+			eq = `\\( 2 + 4 + 6 + \\ldots + ${last} \\)`;
+		} else {
+			eq = `What is the sum of the first \\( ${last/2} \\) even integers?`;
+		}
 		ans = (last * (last+2) / 4).toString();
 	}
 	prob.innerHTML = eq;
@@ -685,6 +704,163 @@ function polynum() {
 
 // PROBLEMS 61 - 70
 
+function remthm() {
+	// ax^3 + bx^2 + cx + d divided by x-q has a remainder of what?
+	// ans: aq^3 + bq^2 + cq + d
+	let A = 1;
+	let B = (Math.random() <= 0.5 ? "-" : "+") + Math.floor(Math.random() * 2 + 1).toString();
+	let C = (Math.random() <= 0.5 ? "-" : "+") + Math.floor(Math.random() * 3 + 1).toString();
+	let D = (Math.random() <= 0.5 ? "-" : "+") + Math.floor(Math.random() * 4 + 1).toString();
+	let Q = (Math.random() <= 0.5 ? "-" : "+") + Math.floor(Math.random() * 3 + 1).toString();
+	eq = `\\( ( ${A}x^3 ${B}x^2 ${C}x ${D} ) \\div ( x ${Q} ) \\) has a remainder of what?`;
+	Q = -parseInt(Q);
+	ans = (A * Math.pow(Q, 3) + parseInt(B) * Math.pow(Q, 2) + parseInt(C) * Q + parseInt(D)).toString();
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+function trig() {
+	// just rapid-fire ask sine and cosine of common angles
+	let numbers = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+	let sines = [0, 1, 2, 3, 4, 3, 2, 1, 0, -1, -2, -3, -4, -3, -2, -1]; // trust the process
+	let cosines = [4, 3, 2, 1, 0, -1, -2, -3, -4, -3, -2, -1, 0, 1, 2, 3];
+	let idx = Math.floor(Math.random() * numbers.length);
+	let value = numbers[idx], func = "", neg = true;
+	if (Math.random() <= 0.5) {
+		// sine
+		func = "sin";
+		neg &= (sines[idx] < 0);
+		ans = Math.abs(sines[idx]).toString();
+	} else {
+		// cosine
+		func = "cos";
+		neg &= (cosines[idx] < 0);
+		ans = Math.abs(cosines[idx]).toString();
+	}
+	if (Math.random() <= 0.5) {
+		// degrees
+		value = `${value}^{\\circ}`;
+	} else {
+		// radians
+		// convert value / 180 to a fraction
+		value = deg_to_rad(value);
+	}
+	eq = `If \\( \\${func} ${value} = \\dfrac{${neg ? "-" : ""}\\sqrt{K}}{2}, K = \\)`;
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+function matrix() {
+	// just calculate determinant of 2x2 matrix
+	// or find an unknown x in it given determinant
+	let A = (Math.random() <= 0.5 ? -1 : 1) * Math.floor(Math.random() * 9 + 1).toString();
+	let B = (Math.random() <= 0.5 ? -1 : 1) * Math.floor(Math.random() * 9 + 1).toString();
+	let C = (Math.random() <= 0.5 ? -1 : 1) * Math.floor(Math.random() * 9 + 1).toString();
+	let D = (Math.random() <= 0.5 ? -1 : 1) * Math.floor(Math.random() * 9 + 1).toString();
+	let det = A * D - B * C;
+	if (Math.random() <= 0.6) {
+		// calculate determinant
+		eq = `\\( \\det \\begin{bmatrix}${A} & ${B} \\\\${C} & ${D}\\end{bmatrix} = \\)`;
+		ans = det.toString();
+	} else {
+		// calculate x
+		let Q = Math.floor(Math.random() * 5 + 1); // x + Q, where Q is between 1 and 5
+		// too lazy to do the negative case on this one
+		let randInt = Math.floor(Math.random() * 4);
+		if (randInt == 0) {
+			ans = (A - Q).toString();
+			A = `x + ${Q}`;
+		} else if (randInt == 1) {
+			ans = (B - Q).toString();
+			B = `x + ${Q}`;
+		} else if (randInt == 2) {
+			ans = (C - Q).toString();
+			C = `x + ${Q}`;
+		} else {
+			ans = (D - Q).toString();
+			D = `x + ${Q}`;
+		}
+		eq = `If \\( \\det \\begin{bmatrix}${A} & ${B} \\\\${C} & ${D}\\end{bmatrix} = ${det}, x =\\)`;
+	}
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
+
+function polar() {
+	// calcuate r for (x,y)
+	// or calculate x or y for (r, theta)
+	
+	// for now, only doing the second case
+	let R = 2 * Math.floor(Math.random() * 5 + 1); // even numbers in [2, 10]
+	let numbers = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+	let sines = [0, 1, 2, 3, 4, 3, 2, 1, 0, -1, -2, -3, -4, -3, -2, -1]; // trust the process
+	let cosines = [4, 3, 2, 1, 0, -1, -2, -3, -4, -3, -2, -1, 0, 1, 2, 3];
+	let idx = -1, func = "";
+	while (true) {
+		idx = Math.floor(Math.random() * numbers.length);
+		if (sines[idx] == 1 || sines[idx] == 4) {
+			// basically ans will be R / 2 or R
+			func = "sin";
+			break;
+		} else if (cosines[idx] == 1 || cosines[idx] == 4) {
+			func = "cos";
+			break;
+		}
+	}
+
+	eq = `If the polar coordinate \\( (${R}, ${numbers[idx]}^{\\circ}) \\) is rewritten as \\( (x, y) \\), find `;
+	if (func == "sin") {
+		eq += `\\( y \\)`;
+		ans = (R * Math.sqrt(sines[idx]) / 2).toString();
+	} else {
+		eq += `\\( x \\)`;
+		ans = (R * Math.sqrt(cosines[idx]) / 2).toString();
+	}
+
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
 
 
 
+// PROBLEMS 71 - 80
+
+function modmath() {
+	// either test the idea of a number_B mod (B-1)_B
+	// or just a regular modular arithmetic problem
+
+	if (Math.random() <= 0.5) {
+		// pick a random prime as the mod first
+		// then pick the answer X
+		// then do stuff
+		let primes = [5, 7, 11, 13];
+		let P = primes[Math.floor(Math.random() * 4)];
+		let X = Math.floor(Math.random() * (P-1) + 1); // [1, P)
+		let A = Math.floor(Math.random() * 4 + 2); // [2, 5]
+		let V = Math.floor(Math.random() * 4 + 2); // [2, 5]
+		let R = A * X + V;
+		if (R >= P) {
+			R %= P;
+		} else {
+			while (R <= P) {
+				R += P;
+			}
+		}
+		ans = X.toString();
+		eq = `Find \\( x, 0 \\leq x \\leq ${P-1} \\), if \\( ${A}x + ${V} \\cong ${R} \\pmod{${P}} \\)`;
+	} else {
+		// pick base B
+		let B = Math.floor(Math.random() * 5 + 5); // [5, 9]
+		let val = "", len = Math.floor(Math.random() * 2 + 3);
+		ans = 0;
+		for (var i = 0; i < len; ++i) {
+			let dig = Math.floor(Math.random() * (B-1) + 1); // [1, B)
+			ans = (ans + dig) % (B-1);
+			val += dig.toString();
+		}
+		ans = ans.toString();
+		eq = `\\( ${val}_${B} \\div ${B-1}_${B} \\) has a remainder of:`;
+	}
+	prob.innerHTML = eq;
+	problist.push(eq);
+}
