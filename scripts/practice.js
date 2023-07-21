@@ -20,13 +20,29 @@ header.textContent = "Some info before you begin:";
 let start, end;
 
 field.addEventListener("keydown", function(event) {
-	if (event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 65) {
-		// disable backspace + delete + a (for ctrl+a)
-		event.preventDefault();
-	}
 	if (event.keyCode == 13) {
 		submit();
 	}
+});
+
+let prevInput = "";
+field.addEventListener("input", function(event){
+	let seenDifferent = 0;
+	let curInput = field.value;
+	if(curInput.length != prevInput.length + 1){
+		field.value = prevInput;
+		return;
+	}
+	for(let i = 0; i < curInput.length; i++){
+		if(curInput.charAt(i) !== prevInput.charAt(i-seenDifferent)){
+			if(seenDifferent > 0){
+				field.value = prevInput;
+				return;
+			}
+			seenDifferent++;
+		}
+	}
+	prevInput = curInput;
 });
 
 button.addEventListener('click', () => {
