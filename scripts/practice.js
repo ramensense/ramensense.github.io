@@ -1,13 +1,5 @@
 var pass = new URLSearchParams(window.location.search).get('pass');
 
-/* list of possible 'pass' values...
-MULTIPLICATION
-- times11
-- times101
-- times111
-- times25
-*/
-
 const header = document.getElementById('heading');
 const button = document.getElementById('trigger-replace');
 const txt = document.getElementById('remove');
@@ -17,7 +9,7 @@ const list = document.getElementById('wrong');
 var problist = [];
 header.textContent = "Some info before you begin:";
 
-let start, end;
+let start, end, empty = true;
 
 field.addEventListener("keydown", function(event) {
 	if (event.keyCode == 13) {
@@ -27,6 +19,11 @@ field.addEventListener("keydown", function(event) {
 
 let prevInput = "";
 field.addEventListener("input", function(event){
+	if (empty) {
+		empty = false;
+		prevInput = field.value;
+		return;
+	}
 	let seenDifferent = 0;
 	let curInput = field.value;
 	if(curInput.length != prevInput.length + 1){
@@ -59,6 +56,7 @@ var ans = "";
 var missed = [];
 
 function domath() {
+	empty = true;
 	field.value = '';
 	header.textContent = `Problem ${(iter+1).toString()} of 10`;
 	if (iter === 10) {
