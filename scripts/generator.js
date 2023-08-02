@@ -13,11 +13,11 @@ function dec_to_rom(num) {
     return Array(+digits.join("") + 1).join("M") + roman;
 }
 
-function gcd(a, b) {
+function gcdfunc(a, b) {
 	if (b == 0) {
 		return a;
 	}
-	return gcd(b, a % b);
+	return gcdfunc(b, a % b);
 }
 
 function factorial(x) {
@@ -174,6 +174,9 @@ function gcdlcm() {
 	while (b % gcd != 0) {
 		b = Math.floor(Math.random() * 90 + 10);
 	}
+
+	// ok so problem with the logic, still should be fine but just recalculate the gcd
+	gcd = gcdfunc(a, b);
 
 	if (Math.floor(Math.random() * 2) == 0) {
 		eq = `\\( \\gcd(${a}, ${b}) \\)`;
