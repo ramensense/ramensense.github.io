@@ -1,4 +1,4 @@
-# The Ramen NST (Number Sense Trainer)
+# Ramen Sense (A Number Sense Trainer)
 
 ## What is this?
 This is a project that I ([Warith](https://warithr621.github.io)) started to help students practice for Number Sense competitions, geared towards HS students preparing for the UIL State Championship hosted by UT Austin in May.
