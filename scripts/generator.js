@@ -28,18 +28,6 @@ function factorial(x) {
 	}
 }
 
-function btodec(x, b) {
-	// base b to base 10
-	x = x.toString();
-    let pw = 0;
-    let ans = 0;
-    for (var i = x.length - 1; i >= 0; i--) {
-        ans += Math.pow(b, pw) * (x[i] - '0');
-        ++pw;
-    }
-    return ans;
-}
-
 function dectob(x, b) {
 	// base 10 to base b
     let pw = 0;
@@ -288,24 +276,21 @@ function base() {
 		// base 10 to base B
 		let B = Math.floor(Math.random() * 5 + 4); // [4, 8]
 		let val = Math.floor(Math.random() * (B*B*B-B-1) + (B+1)); // [B + 1, B^3 - 1]
-		eq = `Convert \\( ${val}_{10} \\) to base ${B}`
-		let res = "", place = 2;
-		while (val != 0) {
-			if (!(val < Math.pow(B, place) && res.length == 0)) {
-				res += Math.floor(val / Math.pow(B, place)).toString();
-				val %= Math.pow(B, place);
-			}
-			--place;
-		}
-		ans = res;
+		eq = `Convert \\( ${val}_{10} \\) to base ${B}`;
+		ans = dectob(val, B);
 	} else {
 		// base B to base 10
 		let B = Math.floor(Math.random() * 7 + 6); // [6, 12]
 		let fst = Math.floor(Math.random() * 3 + 1);
 		let sec = Math.floor(Math.random() * B);
 		let tri = Math.floor(Math.random() * B);
-		eq = `Convert \\( ${fst}${sec}${tri}_{${B}} \\) to base \\( 10 \\)`;
 		ans = (fst * B * B + sec * B + tri).toString();
+		if (B == 10) {
+			B = 'A';
+		} else if (B == 11) {
+			B = 'B';
+		}
+		eq = `Convert \\( ${fst}${sec}${tri}_{${B}} \\) to base \\( 10 \\)`;
 	}
 	prob.innerHTML = eq;
 	problist.push(eq);
