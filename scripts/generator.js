@@ -13,11 +13,11 @@ function dec_to_rom(num) {
     return Array(+digits.join("") + 1).join("M") + roman;
 }
 
-function gcdfunc(a, b) {
+function gcd(a, b) {
 	if (b == 0) {
 		return a;
 	}
-	return gcdfunc(b, a % b);
+	return gcd(b, a % b);
 }
 
 function factorial(x) {
@@ -384,6 +384,9 @@ function repeating() {
 		top /= G; bottom /= G;
 		ans = top.toString() + "/" + bottom.toString();
 		let fst = Math.floor(rep / 10);
+		if (fst < 10) {
+			fst = "0" + fst.toString();
+		}
 		rep = (rep % 10).toString();
 		eq = `Convert to a fraction: \\( 0.${fst}${rep}${rep}${rep}${rep}\\ldots \\)`;
 
