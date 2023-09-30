@@ -164,7 +164,7 @@ function gcdlcm() {
 	}
 
 	// ok so problem with the logic, still should be fine but just recalculate the gcd
-	gcd = gcdfunc(a, b);
+	gcd = gcd(a, b);
 
 	if (Math.floor(Math.random() * 2) == 0) {
 		eq = `\\( \\gcd(${a}, ${b}) \\)`;
