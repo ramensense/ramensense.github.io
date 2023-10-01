@@ -154,24 +154,24 @@ function gcdlcm() {
 	// make the GCD an easy to calculate number, aka like 2-9
 	// technically because of how this is implemented there's a good chance it can be not
 	// but that's a later problem
-	let gcd = Math.floor(Math.random() * 8 + 2);
+	let g = Math.floor(Math.random() * 8 + 2);
 	let a = -1, b = -1;
-	while (a % gcd != 0) {
+	while (a % g != 0) {
 		a = Math.floor(Math.random() * 90 + 10);
 	}
-	while (b % gcd != 0) {
+	while (b % g != 0) {
 		b = Math.floor(Math.random() * 90 + 10);
 	}
 
 	// ok so problem with the logic, still should be fine but just recalculate the gcd
-	gcd = gcd(a, b);
+	g = gcd(a, b);
 
 	if (Math.floor(Math.random() * 2) == 0) {
 		eq = `\\( \\gcd(${a}, ${b}) \\)`;
-		ans = gcd.toString();
+		ans = g.toString();
 	} else {
 		eq = `\\( \\operatorname{lcm}(${a}, ${b}) \\)`;
-		ans = (a * b / gcd).toString();
+		ans = (a * b / g).toString();
 	}
 
 	prob.innerHTML = eq;
