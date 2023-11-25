@@ -598,7 +598,7 @@ function complex() {
 		ans = (A * parseInt(D) + parseInt(B) * C).toString();
 	} else {
 		eq += `\\( a+b \\)`;
-		ans = ((A + parseInt(B)) * (C + parseInt(D)) - 2 * parseInt(B) * parseInt(D));
+		ans = ((A + parseInt(B)) * (C + parseInt(D)) - 2 * parseInt(B) * parseInt(D)).toString();
 	}
 	prob.innerHTML = eq;
 	problist.push(eq);
