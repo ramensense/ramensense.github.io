@@ -52,7 +52,7 @@ button.addEventListener('click', () => {
 });
 
 var iter = 0, right = 0;
-var ans = "";
+var ans = "", low = 0, high = 0;
 var missed = [];
 
 function domath() {
@@ -87,7 +87,13 @@ function domath() {
 
 function submit() {
 	const out = field.value;
-	if (out === ans) {
+	if (pass == "fracseven") {
+		if (seven()) {right+=1;}
+		else {
+			missed.push(`You answered <b>\\( ${out} \\)</b> on the question <b>${problist[problist.length-1]}</b>, 
+			when the correct answer was in the range <b>\\( ${low} \\)</b> to <b>\\( ${high} \\)</b>`);
+		}
+	} else if (out === ans) {
 		right += 1;
 	} else {
 		missed.push(`You answered <b>\\( ${out} \\)</b> on the question <b>${problist[problist.length-1]}</b>, 

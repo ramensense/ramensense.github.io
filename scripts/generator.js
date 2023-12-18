@@ -28,6 +28,10 @@ function factorial(x) {
 	}
 }
 
+function ncr(n, r) {
+	return factorial(n) / factorial(r) / factorial(n-r);
+}
+
 function dectob(x, b) {
 	// base 10 to base b
     let pw = 0;
