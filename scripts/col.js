@@ -193,10 +193,10 @@ function funcdiff() {
 	C = Math.floor(Math.random() * 5) + 5;
 	if (Math.random() <= 0.5) {
 		eq = `If \\( f(x) = (${A}x + ${B})^{${C}} \\) and \\( f'(x) = A(Bx+${B})^C \\), calculate \\( A + B + C \\)`;
-		ans = (2 * C + A - 1).toString();
+		ans = ((A+1) * (C+1) - 2).toString();
 	} else {
 		eq = `If \\( f(x) = (${A}x + ${B})^{${C}} \\) and \\( f''(x) = A(Bx+${B})^C \\), calculate \\( A + B + C \\)`;
-		ans = (C**2 + A - 2).toString();
+		ans = (A * (C**2 - C + 1) + C - 2).toString();
 	}
 	prob.innerHTML = eq;
 	problist.push(eq);
