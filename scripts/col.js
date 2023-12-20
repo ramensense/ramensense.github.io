@@ -196,7 +196,7 @@ function funcdiff() {
 		ans = ((A+1) * (C+1) - 2).toString();
 	} else {
 		eq = `If \\( f(x) = (${A}x + ${B})^{${C}} \\) and \\( f''(x) = A(Bx+${B})^C \\), calculate \\( A + B + C \\)`;
-		ans = (A * (C**2 - C + 1) + C - 2).toString();
+		ans = ( A**2 * C * (C-1) + A + C - 2 ).toString();
 	}
 	prob.innerHTML = eq;
 	problist.push(eq);
