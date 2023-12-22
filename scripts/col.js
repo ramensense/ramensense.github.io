@@ -180,8 +180,8 @@ function fracexp() {
 	num /= g; dem /= g;
 
 	q = Math.random();
-	eq = `If \\( \\sqrt[${dem1}]{a^${num1}} \\times \\sqrt[${dem2}]{a^${num2}} = \\sqrt[k]{a^n} \\) such that \\( \\gcd(n, k)=1 \\),
-		what is \\( ${q<=0.5?'n':'k'} \\)?`;
+	eq = `If \\( \\sqrt[${dem1}]{a^${num1}} \\times \\sqrt[${dem2}]{a^${num2}} = \\sqrt[n]{a^k} \\) such that \\( \\gcd(n, k)=1 \\),
+		what is \\( ${q<=0.5?'k':'n'} \\)?`;
 	ans = (q <= 0.5 ? num : dem).toString();
 	prob.innerHTML = eq;
 	problist.push(eq);
