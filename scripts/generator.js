@@ -289,11 +289,6 @@ function base() {
 		let sec = Math.floor(Math.random() * B);
 		let tri = Math.floor(Math.random() * B);
 		ans = (fst * B * B + sec * B + tri).toString();
-		if (B == 10) {
-			B = 'A';
-		} else if (B == 11) {
-			B = 'B';
-		}
 		eq = `Convert \\( ${fst}${sec}${tri}_{${B}} \\) to base \\( 10 \\)`;
 	}
 	prob.innerHTML = eq;
